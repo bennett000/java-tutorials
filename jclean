@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# safety first
+set -e
+set -u
+
+# change to script's folder
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd $DIR
+
+rm -rf ./build
+rm -rf ./coverage
+rm -f ./cobertura.ser
+mkdir ./build
+mkdir ./coverage
+
+# load up the "subprojects"
+# WARNING any _files_ in src will screw this up, plase make sure src has only
+cd src
+SUB_PROJECTS=( $(ls) )
+cd $DIR
+
+
+
+for i in "${SUB_PROJECTS[@]}"
+do
+  cd $DIR
+  cd build
+  mkdir $i
+  cd $DIR
+  cd coverage
+  mkdir $i
+done
+

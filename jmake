@@ -1,11 +1,27 @@
 #!/bin/bash
 
+# safety first
+set -e
+set -u
+
 # change to script's folder
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR
 
-# our crappy build
-javac -d ./build/basic-java ./src/basic-java/*.java
-cobertura-instrument ./build/basic-java/
-java -cp .:$CLASSPATH:./build/basic-java org.junit.runner.JUnitCore TestMaths
-cobertura-report --base-dir ./src/basic-java --destination ./coverage/basic-java
+# load up the "subprojects"
+# WARNING any _files_ in src will screw this up, plase make sure src has only
+cd src
+SUB_PROJECTS=( $(ls) )
+cd $DIR
+
+for i in "${SUB_PROJECTS[@]}"
+do
+  echo "Building Sub Project $i"
+  # our crappy build
+  javac -d ./build/$i ./src/$i/*.java
+  cobertura-instrument ./build/$i/
+  find ./build/$i/ -name "Test*" | sed -e "s/\.class//" -e "s/\.\/build\/$i\///g" | xargs java -noverify -cp .:$CLASSPATH:./build/$i org.junit.runner.JUnitCore
+  cobertura-report --base-dir ./src/$i --destination ./coverage/$i
+  rm cobertura.ser
+done
+
