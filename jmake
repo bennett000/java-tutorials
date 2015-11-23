@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# change to script's folder
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd $DIR
+
+# our crappy build
+javac -d ./build/basic-java ./src/basic-java/*.java
+cobertura-instrument ./build/basic-java/
+java -cp .:$CLASSPATH:./build/basic-java org.junit.runner.JUnitCore TestMaths
+cobertura-report --base-dir ./src/basic-java --destination ./coverage/basic-java

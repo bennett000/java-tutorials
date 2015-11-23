@@ -1,0 +1,19 @@
+# Mac.
+.DS_STORE
+
+# Vim / Emacs
+*~
+*.swp
+*.swo
+*~
+*#
+
+# I like tmp folders
+tmp
+
+# build folder
+build
+
+# coverage results
+coverage
+cobertura.ser
