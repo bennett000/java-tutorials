@@ -1,4 +1,4 @@
-public enum House {
+public enum Suit {
   Spades,
   Hearts,
   Diamonds,

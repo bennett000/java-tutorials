@@ -2,13 +2,13 @@ public class Card {
   protected int val;
   protected String cardName;
   protected boolean isVisible;
-  protected House house;
+  protected Suit suit;
 
-  public Card(String n, int v, House h) {
-    this.cardName = n;
-    this.val = v;
+  public Card(String name, int value, Suit suit) {
+    this.cardName = name;
+    this.val = value;
     this.isVisible = false;
-    this.house = h;
+    this.suit = suit;
   }
 
   public String name() {
