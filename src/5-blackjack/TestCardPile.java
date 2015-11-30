@@ -77,4 +77,13 @@ public class TestCardPile extends TestCase { // extend the base class
       10 * 3 * 4; // J-K * 4 suits
     assertEquals(cp.sum(), expectedSum);
   }
+
+  public void testRemoveAll() {
+    CardPile cp = new CardPile();
+    cp.add(new Card("Three", 3, Suit.Spades));
+    cp.add(new Card("Acey", 4, Suit.Spades));
+    cp.add(new Card("Blah", 4, Suit.Spades));
+    cp.removeAll();
+    assertEquals(cp.size(), 0);
+  }
 }

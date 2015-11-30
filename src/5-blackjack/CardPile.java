@@ -76,4 +76,8 @@ public class CardPile extends ArrayList<Card> {
     return total;
   }
 
+  public boolean removeAll() {
+    return super.removeAll(this);
+  }
+
 }
